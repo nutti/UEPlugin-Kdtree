@@ -291,7 +291,7 @@ void UKdtreeBPLibrary::ClearActorKdtree(FActorKdtree& Tree)
     Tree.Actors.Empty();
 }
 
-void UKdtreeBPLibrary::CollectFromKdtree(const FKdtree& Tree, const FVector& Center, float Radius,
+void UKdtreeBPLibrary::CollectFromKdtree(const FKdtree& Tree, const FVector Center, float Radius,
                                          TArray<int>& Indices, TArray<FVector>& Data)
 {
     CollectInternal(Tree.Internal, Tree.Internal.Root, Center, Radius, &Indices);
@@ -301,7 +301,7 @@ void UKdtreeBPLibrary::CollectFromKdtree(const FKdtree& Tree, const FVector& Cen
     }
 }
 
-void UKdtreeBPLibrary::CollectFromActorKdtree(const FActorKdtree& Tree, const FVector& Center,
+void UKdtreeBPLibrary::CollectFromActorKdtree(const FActorKdtree& Tree, const FVector Center,
                                               float Radius, TArray<int>& Indices, TArray<AActor*>& Data)
 {
     CollectInternal(Tree.Internal, Tree.Internal.Root, Center, Radius, &Indices);

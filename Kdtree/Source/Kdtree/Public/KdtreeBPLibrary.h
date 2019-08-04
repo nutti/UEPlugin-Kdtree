@@ -53,11 +53,11 @@ private:
     static void ClearActorKdtree(UPARAM(ref) FActorKdtree& Tree);
     
     UFUNCTION(BluePrintCallable, Category="kd-tree")
-    static void CollectFromKdtree(const FKdtree& Tree, const FVector& Center, float Radius,
+    static void CollectFromKdtree(const FKdtree& Tree, const FVector Center, float Radius,
                                   TArray<int>& Indices, TArray<FVector>& Data);
     
     UFUNCTION(BluePrintCallable, Category="kd-tree")
-    static void CollectFromActorKdtree(const FActorKdtree& Tree, const FVector& Center,
+    static void CollectFromActorKdtree(const FActorKdtree& Tree, const FVector Center,
                                        float Radius, TArray<int>& Indices, TArray<AActor*>& Data);
     
     UFUNCTION(BluePrintCallable, Category="kd-tree")
