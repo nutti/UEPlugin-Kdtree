@@ -47,10 +47,10 @@ private:
     static void BuildActorKdtree(FActorKdtree& Tree, const TArray<AActor*>& Actors);
     
     UFUNCTION(BluePrintCallable, Category="kd-tree")
-    static void ClearKdtree(FKdtree& Tree);
+    static void ClearKdtree(UPARAM(ref) FKdtree& Tree);
     
     UFUNCTION(BluePrintCallable, Category="kd-tree")
-    static void ClearActorKdtree(FActorKdtree& Tree);
+    static void ClearActorKdtree(UPARAM(ref) FActorKdtree& Tree);
     
     UFUNCTION(BluePrintCallable, Category="kd-tree")
     static void CollectFromKdtree(const FKdtree& Tree, const FVector& Center, float Radius,
