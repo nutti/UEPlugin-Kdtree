@@ -51,11 +51,12 @@ Launch .uproject file and enable plugin via *Settings* > *Plugins* > *Project* >
 ![](docs/images/kdtree.png)
 
 
-### Build Actor kdtree and radius search
+### Build kdtree and radius search (Async version)
 
-Same as [Build kdtree and radius search](#Build-kdtree-and-radius-search) except for below things.
+Async version is also provided by this plugin.
 
-* Build a kd-tree from `Actor` objects.
-* The name of all functions and data structures need to be changed as `kdtree` -> `Actor kdtree`.
+1. `Build Kdtree Async` is an asynchronous version of `Build Kdtree`.
+   * All synchronous versions (`Collect from Kdtree`, `Dump Kdtree to Console`, `Validate Kdtree` and `Clear Kdtree`) can be applicatable to `Kdtree` object after `Build Kdtree Async` is completed.
+2. `Collect from Kdtree Async` is an asynchronous version of `Collect from Kdtree`.
 
-![](docs/images/actor_kdtree.png)
+![](docs/images/kdtree_async.png)
