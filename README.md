@@ -30,7 +30,7 @@ Generate a project files for Visual Studio (Windows) or XCode (Mac).
 
 #### 4. Build
 
-Build whole source code including plugin source code.
+Build the project.
 
 
 #### 5. Launch UE4 editor and enable the plugin
