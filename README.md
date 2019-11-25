@@ -13,29 +13,29 @@ This plugin is tested on the below environment.
 
 ## Installation
 
-#### 1. Download source codes
+#### 1. Download source code
 
-Download whole project's source codes from [GitHub](https://github.com/nutti/UE4-Kdtree/archive/master.zip) and unzip them.
-
-
-#### 2. Copy the plugin source codes
-
-Copy the plugin source codes (`Kdtree` directory) into the plugin directory (`Plugin` directory) on your UE4 project.
+Download whole project's source code from [GitHub](https://github.com/nutti/UE4-Kdtree/archive/master.zip) and unzip it.
 
 
-#### 3. Generate a project file for each IDE
+#### 2. Move the plugin
 
-Generate a project file for Visual Studio (Windows) or XCode (Mac).
+Move the plugin folder (`Kdtree` directory) into the plugins directory (`Plugins`) in your UE4 project folder.
+
+
+#### 3. Generate a project files
+
+Generate a project files for Visual Studio (Windows) or XCode (Mac).
 
 
 #### 4. Build
 
-Build whole source codes including plugin source codes.
+Build whole source code including plugin source code.
 
 
-#### 5. Launch UE4 editor and enable plugin
+#### 5. Launch UE4 editor and enable the plugin
 
-Launch .uproject file and enable plugin via *Settings* > *Plugins* > *Project* > *Other* > *kd-tree*.
+Launch .uproject file and enable the plugin via *Settings* > *Plugins* > *Project* > *Other* > *kd-tree*.
 
 
 ## Features / Tutorials
