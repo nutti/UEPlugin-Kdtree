@@ -20,12 +20,12 @@ Download whole project's source code from [GitHub](https://github.com/nutti/UE4-
 
 #### 2. Move the plugin
 
-Move the plugin folder (`Kdtree` directory) into the plugins directory (`Plugins`) in your UE4 project folder.
+Move the plugin folder (`Kdtree` directory) into the "Plugins" directory in your UE4 project folder.
 
 
-#### 3. Generate a project files
+#### 3. Generate project files
 
-Generate a project files for Visual Studio (Windows) or XCode (Mac).
+Generate project files for Visual Studio (Windows) or XCode (Mac).
 
 
 #### 4. Build
