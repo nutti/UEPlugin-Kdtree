@@ -23,9 +23,9 @@ Download whole project's source code from [GitHub](https://github.com/nutti/UE4-
 Move the plugin folder (`Kdtree` directory) into the "Plugins" directory in your UE4 project folder.
 
 
-#### 3. Generate project files
+#### 3. (re-) Generate project files
 
-Generate project files for Visual Studio (Windows) or XCode (Mac).
+Generate project files (for example with RMouseButton on the \*.uproject) for Visual Studio (Windows) or XCode (Mac).
 
 
 #### 4. Build
