@@ -11,7 +11,7 @@
 
 
 UCLASS()
-class UAsyncKdtreeBPLibrary : public UBlueprintFunctionLibrary
+class KDTREE_API UAsyncKdtreeBPLibrary : public UBlueprintFunctionLibrary
 {
     GENERATED_UCLASS_BODY()
 public:

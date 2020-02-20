@@ -16,7 +16,7 @@ struct FKdtreeInternal
 };
 
 USTRUCT(BlueprintType)
-struct FKdtree
+struct KDTREE_API FKdtree
 {
     GENERATED_USTRUCT_BODY()
     
