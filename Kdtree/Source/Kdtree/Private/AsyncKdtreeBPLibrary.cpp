@@ -99,7 +99,7 @@ public:
                                           Params.Radius, Params.Indices);
         for (int Index = 0; Index < Params.Indices->Num(); ++Index)
         {
-            Params.Data->Add(Params.Tree->Internal.Data[Index]);
+            Params.Data->Add(Params.Tree->Internal.Data[(*Params.Indices)[Index]]);
         }
     }
     

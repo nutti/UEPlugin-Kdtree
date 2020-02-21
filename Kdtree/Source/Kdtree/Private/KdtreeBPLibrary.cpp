@@ -26,7 +26,7 @@ void UKdtreeBPLibrary::CollectFromKdtree(const FKdtree& Tree, const FVector Cent
     KdtreeInternal::CollectFromKdtree(Tree.Internal, Center, Radius, &Indices);
     for (int Index = 0; Index < Indices.Num(); ++Index)
     {
-        Data.Add(Tree.Internal.Data[Index]);
+        Data.Add(Tree.Internal.Data[Indices[Index]]);
     }
 }
 
