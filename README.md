@@ -60,3 +60,24 @@ Async version is also provided by this plugin.
 2. `Collect from Kdtree Async` is an asynchronous version of `Collect from Kdtree`.
 
 ![](docs/images/kdtree_async.png)
+
+
+## Project Authors
+
+
+### Owner
+
+[**@nutti**](https://github.com/nutti)
+
+Indie Game/Application Developer.  
+Especially, I spend most time to improve Blender and Unreal Game Engine via providing the extensions.
+
+Support via [GitHub Sponsors](https://github.com/sponsors/nutti)
+
+* CONTACTS: [Twitter](https://twitter.com/nutti__)
+* WEBSITE: [Japanese Only](https://colorful-pico.net/)
+
+
+### Contributor
+
+* [**@irvnriir**](https://github.com/irvnriir)
