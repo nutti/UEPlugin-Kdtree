@@ -62,6 +62,11 @@ Async version is also provided by this plugin.
 ![](docs/images/kdtree_async.png)
 
 
+## Change Log
+
+See [CHANGELOG.md](CHANGELOG.md)
+
+
 ## Project Authors
 
 
