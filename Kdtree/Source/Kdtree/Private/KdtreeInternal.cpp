@@ -1,5 +1,7 @@
-#include "KdtreeBPLibrary.h"
 #include "KdtreeInternal.h"
+
+#include "KdtreeBPLibrary.h"
+
 
 namespace KdtreeInternal
 {

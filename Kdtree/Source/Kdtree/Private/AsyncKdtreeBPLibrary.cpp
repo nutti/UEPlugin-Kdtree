@@ -1,8 +1,9 @@
+#include "AsyncKdtreeBPLibrary.h"
+
 #include "Kismet/BlueprintAsyncActionBase.h"
 
 #include "KdtreeBPLibrary.h"
-#include "AsyncKdtreeBPLibrary.h"
-#include "../Private/KdtreeInternal.h"
+#include "KdtreeInternal.h"
 
 
 struct FBuildKdtreeTaskParams
