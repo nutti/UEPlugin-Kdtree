@@ -1,4 +1,11 @@
-// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
+/*!
+ * Kdtree
+ *
+ * Copyright (c) 2019-2023 Colory Games
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 #pragma once
 
