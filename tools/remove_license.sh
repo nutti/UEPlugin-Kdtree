@@ -20,8 +20,9 @@ if [ "${2}" = "full" ]; then
 fi
 
 if [ ${FULL} -eq 1 ]; then
+    # shellcheck disable=SC2044
     for file in $(find "${SOURCE_DIR}" -name "*.cpp" -or -name "*.h" -or -name "*.cs"); do
-        sed -i -z -e "s/\s*\\*\s*This software is released under the MIT License.*\s*\\*\s*https:\\/\\/opensource.org\\/licenses\\/MIT//g" ${file}
+        sed -i -z -e "s/\s*\\*\s*This software is released under the MIT License.*\s*\\*\s*https:\\/\\/opensource.org\\/licenses\\/MIT//g" "${file}"
         echo "Removed license in ${file}"
     done
 fi

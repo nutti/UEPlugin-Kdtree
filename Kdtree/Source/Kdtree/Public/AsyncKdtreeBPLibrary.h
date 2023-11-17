@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "Engine/LatentActionManager.h"
 #include "KdtreeBPLibrary.h"
 #include "KdtreeCommon.h"
 #include "Kismet/BlueprintFunctionLibrary.h"

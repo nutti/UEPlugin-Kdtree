@@ -45,8 +45,9 @@ remove_start_version_regex="[^\S]*//[^\S]*@remove-start[^\S]+UE_VERSION=([0-9.,]
 remove_start_full_regex="[^\S]*//[^\S]*@remove-start[^\S]+FULL_VERSION=true"
 remove_end_regex="[^\S]*//[^\S]*@remove-end"
 enable_delete=0
+# shellcheck disable=SC2044
 for file in $(find "${SOURCE_DIR}" -name "*.cpp" -or -name "*.h" -or -name "*.cs"); do
-    in_dir_path=$(dirname ${file})
+    in_dir_path=$(dirname "${file}")
     tmp_dir_path="${TMP_DIR}/${in_dir_path}"
     mkdir -p "${tmp_dir_path}"
 
@@ -56,8 +57,8 @@ for file in $(find "${SOURCE_DIR}" -name "*.cpp" -or -name "*.h" -or -name "*.cs
             versions=${BASH_REMATCH[1]}
             versions=${versions//,/ }
 
-            for version in ${versions[@]}; do
-                if [[ ${version} = ${ENGINE_VERSION} ]]; then
+            for version in "${versions[@]}"; do
+                if [[ ${version} = "${ENGINE_VERSION}" ]]; then
                     enable_delete=1
                     break
                 fi
@@ -67,7 +68,7 @@ for file in $(find "${SOURCE_DIR}" -name "*.cpp" -or -name "*.h" -or -name "*.cs
         fi
 
         if [[ $enable_delete -eq 0 ]]; then
-            echo "${line}" >> ${tmp_file_path}
+            echo "${line}" >> "${tmp_file_path}"
         fi
 
         if [[ "$line" =~ $remove_end_regex ]]; then
@@ -79,7 +80,7 @@ for file in $(find "${SOURCE_DIR}" -name "*.cpp" -or -name "*.h" -or -name "*.cs
     echo "Remove code in ${file} >> ${tmp_file_path}"
 done
 
-
+# shellcheck disable=SC2044
 for file in $(find "${TMP_DIR}" -name "*.cpp" -or -name "*.h" -or -name "*.cs"); do
     out_file_path=${file/${TMP_DIR}/${OUTPUT_DIR}}
     cp "${file}" "${out_file_path}"

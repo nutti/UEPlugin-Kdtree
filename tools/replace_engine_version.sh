@@ -23,17 +23,18 @@ engine_version=${2}
 
 supported=0
 for v in "${SUPPORTED_VERSIONS[@]}"; do
-    if [ ${v} = ${engine_version} ]; then
+    if [ "${v}" = "${engine_version}" ]; then
         supported=1
     fi
 done
 if [ ${supported} -eq 0 ]; then
     echo "${engine_version} is not supported."
-    echo "Supported version is ${SUPPORTED_VERSIONS[@]}"
+    echo "Supported version is ${SUPPORTED_VERSIONS[*]}"
     exit 1
 fi
 
-for file in `find ${source_dir} -name "*.uplugin"`; do
-    sed -i -e "s/\"EngineVersion\": \"5.3.0\",/\"EngineVersion\": \"${engine_version}\",/g" ${file}
+# shellcheck disable=SC2044
+for file in $(find "${source_dir}" -name "*.uplugin"); do
+    sed -i -e "s/\"EngineVersion\": \"5.3.0\",/\"EngineVersion\": \"${engine_version}\",/g" "${file}"
     echo "Replaced engine version in ${file}"
 done

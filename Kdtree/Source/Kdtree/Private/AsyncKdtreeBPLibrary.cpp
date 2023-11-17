@@ -9,6 +9,8 @@
 
 #include "AsyncKdtreeBPLibrary.h"
 
+#include "Async/AsyncWork.h"
+#include "Engine/Engine.h"
 #include "KdtreeBPLibrary.h"
 #include "KdtreeInternal.h"
 #include "Kismet/BlueprintAsyncActionBase.h"

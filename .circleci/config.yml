@@ -1,90 +1,21 @@
+---
+# yamllint disable rule:line-length
 workflows:
   version: 2.1
   build:
     jobs:
-      # - functional-test-plugin:
-      #     context:
-      #       - unreal-engine-ci
-      #     matrix:
-      #       parameters:
-      #         unreal-engine-version: ["5.1.0", "5.2.0", "5.3.0"]
-      #         version: ["full"]
       - build-plugin:
           context:
             - unreal-engine-ci
           matrix:
             parameters:
-              unreal-engine-version: ["4.27.0", "5.0.0", "5.1.0", "5.2.0", "5.3.0"]
+              unreal-engine-version: [
+                "4.27.0", "5.0.0", "5.1.0", "5.2.0", "5.3.0"
+              ]
               version: ["free", "full"]
-      # - build-sample:
-      #     context:
-      #       - unreal-engine-ci
-      #     matrix:
-      #       parameters:
-      #         unreal-engine-version: ["5.0.0"]
-      #         version: ["full"]
 
 version: 2.1
 jobs:
-  # functional-test-plugin:
-  #   parameters:
-  #     unreal-engine-version:
-  #       type: string
-  #     version:
-  #       type: string
-  #   docker:
-  #     - image: ghcr.io/epicgames/unreal-engine:dev-slim-<< parameters.unreal-engine-version >>
-  #       auth:
-  #         username: $GHCR_USERNAME
-  #         password: $GHCR_PASSWORD
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Run scripts for the license removing
-  #         command: bash tools/remove_license.sh Kdtree << parameters.version >>
-  #     - run:
-  #         name: Run scripts for the code removing
-  #         command: bash tools/remove_code.sh Kdtree << parameters.unreal-engine-version >> << parameters.version >> .
-  #     - run:
-  #         name: "Run scripts for the release"
-  #         command: bash tools/replace_engine_version.sh Kdtree << parameters.unreal-engine-version >>
-  #     - run:
-  #         name: "Copy plugin"
-  #         command: |
-  #           mkdir ${PWD}/tests/functional_test/FunctionalTest/Plugins
-  #           cp -r Kdtree ${PWD}/tests/functional_test/FunctionalTest/Plugins
-  #     - run:
-  #         name: "Build project"
-  #         command: |
-  #           /home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh BuildCookRun \
-  #             -utf8output \
-  #             -platform=Linux \
-  #             -clientconfig=Shipping \
-  #             -serverconfig=Shipping \
-  #             -project=${PWD}/tests/functional_test/FunctionalTest/FunctionalTest.uproject \
-  #             -noP4 \
-  #             -nodebuginfo \
-  #             -allmaps \
-  #             -cook \
-  #             -build \
-  #             -stage \
-  #             -prereqs \
-  #             -pak \
-  #             -archive \
-  #             -archivedirectory=/tmp/Packaged
-  #     - run:
-  #         name: "Functional test against Plugin"
-  #         command: |
-  #           /home/ue4/UnrealEngine/Engine/Binaries/Linux/UnrealEditor \
-  #             ${PWD}/tests/functional_test/FunctionalTest/FunctionalTest.uproject \
-  #             -unattended \
-  #             -nopause \
-  #             -NullRHI \
-  #             -ExecCmds="Automation RunTests Kdtree; Quit" \
-  #             -testexit="Automation Test Queue Empty" \
-  #             -log=RunTests.log \
-  #             -ReportOutputPath="/tmp/FunctionalTestsReport"
-
   build-plugin:
     parameters:
       unreal-engine-version:
@@ -114,50 +45,3 @@ jobs:
               -Plugin=${PWD}/Kdtree/Kdtree.uplugin \
               -Package=/tmp \
               -Rocket
-
-  # build-sample:
-  #   parameters:
-  #     unreal-engine-version:
-  #       type: string
-  #     version:
-  #       type: string
-  #   docker:
-  #     - image: ghcr.io/epicgames/unreal-engine:dev-slim-<< parameters.unreal-engine-version >>
-  #       auth:
-  #         username: $GHCR_USERNAME
-  #         password: $GHCR_PASSWORD
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Run scripts for the license removing
-  #         command: bash tools/remove_license.sh Kdtree << parameters.version >>
-  #     - run:
-  #         name: Run scripts for the code removing
-  #         command: bash tools/remove_code.sh Kdtree << parameters.unreal-engine-version >> << parameters.version >> .
-  #     - run:
-  #         name: "Run scripts for the release"
-  #         command: bash tools/replace_engine_version.sh Kdtree << parameters.unreal-engine-version >>
-  #     - run:
-  #         name: "Copy plugin sources"
-  #         command: |
-  #           mkdir ${PWD}/samples/SampleProject/Plugins
-  #           cp -r Kdtree ${PWD}/samples/SampleProject/Plugins
-  #     - run:
-  #         name: "Build Sample"
-  #         command: |
-  #           /home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh BuildCookRun \
-  #             -utf8output \
-  #             -platform=Linux \
-  #             -clientconfig=Shipping \
-  #             -serverconfig=Shipping \
-  #             -project=${PWD}/samples/SampleProject/SampleProject.uproject \
-  #             -noP4 \
-  #             -nodebuginfo \
-  #             -allmaps \
-  #             -cook \
-  #             -build \
-  #             -stage \
-  #             -prereqs \
-  #             -pak \
-  #             -archive \
-  #             -archivedirectory=/tmp/Packaged
