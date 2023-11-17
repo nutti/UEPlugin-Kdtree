@@ -1,0 +1,94 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+
+jobs:
+  plugin-pack:
+    name: Pack plugin sources
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        unreal_engine_version:
+          ["4.27.0", "5.0.0", "5.1.0", "5.2.0", "5.3.0"]
+        version:
+          ["free", "full"]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run scripts for the license removing
+        run: |
+          bash tools/remove_license.sh Kdtree ${{ matrix.version }}
+
+      - name: Run scripts for the code removing
+        run: |
+          bash tools/remove_code.sh Kdtree ${{ matrix.unreal_engine_version }} ${{ matrix.version }} .
+
+      - name: Run scripts for the release
+        run: |
+          bash tools/replace_engine_version.sh Kdtree ${{ matrix.unreal_engine_version }}
+
+      - name: Compress plugin's sources
+        run: |
+          mkdir release-plugin-${{ matrix.version }}
+          zip -r Kdtree_UE${{ matrix.unreal_engine_version }}_${{ matrix.version }}.zip Kdtree
+          mv Kdtree_UE${{ matrix.unreal_engine_version }}_${{ matrix.version }}.zip release-plugin-${{ matrix.version }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Kdtree_${{ matrix.version }}
+          path: "release-plugin-${{ matrix.version }}"
+
+  # sample-pack:
+  #   name: Pack sample sources
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v2
+
+  #     - name: Compress sample project's sources
+  #       run: |
+  #         mkdir release-sample
+  #         cd samples && zip -r SampleProject.zip SampleProject && cd ..
+  #         mv samples/SampleProject.zip release-sample
+
+  #     - name: Upload artifact
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: SampleProject
+  #         path: "release-sample"
+
+  publish:
+    name: Publish
+    needs: [plugin-pack, sample-pack]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Fetch Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: dist
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_FOR_ACTIONS }}
+        run: |
+          set -x
+          assets=()
+          for asset in dist/Kdtree_free/*.zip; do
+            assets+=("-a" "$asset")
+          done
+          for asset in dist/SampleProject/*.zip; do
+            assets+=("-a" "$asset")
+          done
+          tag_name="${GITHUB_REF##*/}"
+          hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
