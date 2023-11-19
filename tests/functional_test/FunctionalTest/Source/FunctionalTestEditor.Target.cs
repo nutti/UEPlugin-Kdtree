@@ -1,5 +1,5 @@
 /*!
- * SampleProject
+ * FunctionalTest
  *
  * Copyright (c) 2019-2023 nutti
  *
@@ -10,13 +10,13 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class SampleProjectEditorTarget : TargetRules
+public class FunctionalTestEditorTarget : TargetRules
 {
-	public SampleProjectEditorTarget(TargetInfo Target) : base(Target)
+	public FunctionalTestEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V4;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_3;
-		ExtraModuleNames.Add("SampleProject");
+		ExtraModuleNames.Add("FunctionalTest");
 	}
 }

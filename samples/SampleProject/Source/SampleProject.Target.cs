@@ -1,7 +1,7 @@
 /*!
- * Kdtree
+ * SampleProject
  *
- * Copyright (c) 2019-2023 Colory Games
+ * Copyright (c) 2019-2023 nutti
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT

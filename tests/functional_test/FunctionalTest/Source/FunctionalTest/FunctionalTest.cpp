@@ -1,5 +1,5 @@
 /*!
- * Kdtree
+ * FunctionalTest
  *
  * Copyright (c) 2019-2023 nutti
  *
@@ -7,13 +7,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-#pragma once
+#include "FunctionalTest.h"
 
 #include "Modules/ModuleManager.h"
 
-class FKdtreeModule : public IModuleInterface
-{
-public:
-	virtual void StartupModule() override;
-	virtual void ShutdownModule() override;
-};
+IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, FunctionalTest, "FunctionalTest");
