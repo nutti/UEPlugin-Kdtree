@@ -47,24 +47,24 @@ jobs:
           name: Kdtree_${{ matrix.version }}
           path: "release-plugin-${{ matrix.version }}"
 
-  # sample-pack:
-  #   name: Pack sample sources
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout repo
-  #       uses: actions/checkout@v2
+  sample-pack:
+    name: Pack sample sources
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
 
-  #     - name: Compress sample project's sources
-  #       run: |
-  #         mkdir release-sample
-  #         cd samples && zip -r SampleProject.zip SampleProject && cd ..
-  #         mv samples/SampleProject.zip release-sample
+      - name: Compress sample project's sources
+        run: |
+          mkdir release-sample
+          cd samples && zip -r SampleProject.zip SampleProject && cd ..
+          mv samples/SampleProject.zip release-sample
 
-  #     - name: Upload artifact
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: SampleProject
-  #         path: "release-sample"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: SampleProject
+          path: "release-sample"
 
   publish:
     name: Publish

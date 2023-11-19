@@ -29,6 +29,24 @@ jobs:
         run: |
           bash tests/lint/clang-format/run.sh Kdtree
 
+  sample-clang-format:
+    name: sample-clang-format
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Install clang-format
+        run: |
+          apt update
+          apt install -y clang-format
+
+      - name: clang-format
+        run: |
+          bash tests/lint/clang-format/run.sh samples/SampleProject
+
   markdownlint:
     name: markdownlint
     runs-on: ubuntu-latest
