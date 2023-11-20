@@ -1,23 +1,29 @@
 {
-	"FileVersion": 3,
-	"Version": 1,
-	"VersionName": "1.1",
-	"FriendlyName": "kd-tree",
-	"Description": "kd-tree plugin for UE4",
-	"Category": "Other",
-	"CreatedBy": "Nutti",
-	"CreatedByURL": "https://github.com/nutti/UE4-kdtree",
-	"DocsURL": "",
-	"MarketplaceURL": "",
-	"SupportURL": "",
-	"CanContainContent": true,
-	"IsBetaVersion": false,
-	"Installed": false,
-	"Modules": [
-		{
-			"Name": "Kdtree",
-			"Type": "Runtime",
-			"LoadingPhase": "PreLoadingScreen"
-		}
-	]
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.1",
+  "FriendlyName": "kd-tree",
+  "Description": "Blueprint nodes to build a kd-tree",
+  "EngineVersion": "5.3.0",
+  "Category": "Other",
+  "CreatedBy": "nutti (Colorful Pico)",
+  "CreatedByURL": "https://github.com/nutti/UEPlugin-Kdtree",
+  "DocsURL": "https://github.com/nutti/UEPlugin-Kdtree",
+  "MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/33e46eae83184c4789126ddd129d5fd5",
+  "SupportURL": "https://github.com/nutti/UEPlugin-Kdtree",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "Installed": false,
+  "Modules": [
+    {
+      "Name": "Kdtree",
+      "Type": "Runtime",
+      "LoadingPhase": "PreLoadingScreen",
+      "WhitelistPlatforms": [
+        "Win64",
+        "Mac",
+        "Linux"
+      ]
+    }
+  ]
 }
