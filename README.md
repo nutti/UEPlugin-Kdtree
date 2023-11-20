@@ -3,6 +3,8 @@
 This is a UE4 plugin to provide utility functions for building kd-tree as
 Blueprint Function Library.
 
+![Thumbnail](docs/images/thumbnail/kdtree.png)
+
 ## Features
 
 * Build kd-tree.

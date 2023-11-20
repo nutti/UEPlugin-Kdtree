@@ -2,7 +2,7 @@
 
 ## Build kd-tree and do radius search
 
-![kdtree](images/kdtree.png)
+![kdtree](images/tutorial/kdtree.png)
 
 1. `Build Kdtree` builds a kd-tree (`Kdtree` object in Blueprint) from `Vector`
    objects.
@@ -18,7 +18,7 @@
 
 ## Use asynchronous version
 
-![kdtree_async](images/kdtree_async.png)
+![kdtree_async](images/tutorial/kdtree_async.png)
 
 1. `Build Kdtree Async` is an asynchronous version of `Build Kdtree`.
    * All synchronous versions (`Collect from Kdtree`, `Dump Kdtree to Console`,
