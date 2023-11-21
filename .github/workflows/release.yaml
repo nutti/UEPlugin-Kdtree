@@ -79,6 +79,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           path: dist
+      - name: Install hub command
+        run: |
+          sudo apt update
+          sudo apt install -y hub
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_FOR_ACTIONS }}
