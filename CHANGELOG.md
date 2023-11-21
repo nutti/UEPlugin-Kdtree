@@ -2,7 +2,19 @@
 
 # Change Log
 
-## [Unreleased](https://github.com/nutti/UE4-Kdtree/compare/v1.1...master)
+## [Unreleased](https://github.com/nutti/UE4-Kdtree/compare/v1.2...master)
+
+<!-- markdownlint-disable-next-line MD013 -->
+## [Version 1.2](https://github.com/nutti/UE4-Kdtree/compare/v1.1...v1.2) - 2023.11.21
+
+## Other Updates
+
+* Expose C++ API to public
+* Fix bugs
+
+### Contributor
+
+* [**@irvnriir**](https://github.com/irvnriir)
 
 <!-- markdownlint-disable-next-line MD013 -->
 ## [Version 1.1](https://github.com/nutti/UE4-Kdtree/compare/v1.0...v1.1) - 2019.9.1
