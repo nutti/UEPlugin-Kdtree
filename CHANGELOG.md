@@ -7,7 +7,7 @@
 <!-- markdownlint-disable-next-line MD013 -->
 ## [Version 1.2](https://github.com/nutti/UE4-Kdtree/compare/v1.1...v1.2) - 2023.11.21
 
-## Other Updates
+### Other Updates
 
 * Expose C++ API to public
 * Fix bugs
@@ -23,7 +23,7 @@
 
 * Add async version of Blueprint Function for Building Kdtree and Radius search
 
-## Other Updates
+### Other Updates
 
 * Fix bugs
 * Delete Actor specialized Blueprint Function
