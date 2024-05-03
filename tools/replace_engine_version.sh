@@ -6,7 +6,7 @@ set -eEu
 
 SUPPORTED_VERSIONS=(
     "4.26.0" "4.27.0"
-    "5.0.0" "5.1.0" "5.2.0" "5.3.0"
+    "5.0.0" "5.1.0" "5.2.0" "5.3.0" "5.4.0"
 )
 
 function usage() {
@@ -35,6 +35,6 @@ fi
 
 # shellcheck disable=SC2044
 for file in $(find "${source_dir}" -name "*.uplugin"); do
-    sed -i -e "s/\"EngineVersion\": \"5.3.0\",/\"EngineVersion\": \"${engine_version}\",/g" "${file}"
+    sed -i -e "s/\"EngineVersion\": \"5.4.0\",/\"EngineVersion\": \"${engine_version}\",/g" "${file}"
     echo "Replaced engine version in ${file}"
 done
