@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - 'release/v**'
       - 'run-ci/**'
     tags:
       - 'v*'
