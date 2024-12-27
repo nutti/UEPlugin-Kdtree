@@ -4,7 +4,7 @@
   "VersionName": "1.3",
   "FriendlyName": "kd-tree",
   "Description": "Blueprint nodes to build a kd-tree",
-  "EngineVersion": "5.4.0",
+  "EngineVersion": "5.5.0",
   "Category": "Other",
   "CreatedBy": "nutti (Colorful Pico)",
   "CreatedByURL": "https://github.com/nutti/UEPlugin-Kdtree",

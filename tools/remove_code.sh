@@ -6,7 +6,7 @@ set -eEu
 
 SUPPORTED_VERSIONS=(
     "4.26.0" "4.27.0"
-    "5.0.0" "5.1.0" "5.2.0" "5.3.0" "5.4.0"
+    "5.0.0" "5.1.0" "5.2.0" "5.3.0" "5.4.0" "5.5.0"
 )
 
 function usage() {
@@ -19,7 +19,7 @@ if [ $# -ne 4 ]; then
 fi
 
 SOURCE_DIR=${1}
-ENGINE_VERSION=${2}
+ENGINE_VERSION="${2%.*}.0"
 FULL=0
 if [ "${3}" = "full" ]; then
     FULL=1
