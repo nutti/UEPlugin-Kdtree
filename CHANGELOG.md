@@ -2,7 +2,14 @@
 
 # Change Log
 
-## [Unreleased](https://github.com/nutti/UE4-Kdtree/compare/v1.3.0...master)
+## [Unreleased](https://github.com/nutti/UE4-Kdtree/compare/v1.4.0...master)
+
+<!-- markdownlint-disable-next-line MD013 -->
+## [Version 1.4.0](https://github.com/nutti/UE4-Kdtree/compare/v1.3.0...v1.4.0) - 2024.12.28
+
+### Updated Features
+
+* Support on Unreal Engine 5.5
 
 <!-- markdownlint-disable-next-line MD013 -->
 ## [Version 1.3.0](https://github.com/nutti/UE4-Kdtree/compare/v1.2...v1.3.0) - 2024.5.7

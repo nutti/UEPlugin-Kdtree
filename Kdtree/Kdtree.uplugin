@@ -1,7 +1,7 @@
 {
   "FileVersion": 3,
   "Version": 1,
-  "VersionName": "1.3",
+  "VersionName": "1.4.0",
   "FriendlyName": "kd-tree",
   "Description": "Blueprint nodes to build a kd-tree",
   "EngineVersion": "5.5.0",
