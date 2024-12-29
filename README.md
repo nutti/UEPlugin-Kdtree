@@ -31,6 +31,12 @@ See [the tutorial](docs/tutorial.md).
 
 See [CHANGELOG.md](CHANGELOG.md)
 
+## Bug Report / Feature Request / Disscussions
+
+If you want to report problems or request features, please
+[make issues](https://github.com/nutti/UEPlugin-Kdtree/issues).  
+You can also discuss about this plugin at [Discord (kd-tree channel)](https://discord.gg/8pPCN9vMhC).
+
 ## Project Authors
 
 ### Owner
