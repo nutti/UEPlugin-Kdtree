@@ -24,46 +24,48 @@ void Swap(T* Var1, T* Var2)
 }
 
 template <typename T>
-void QuickSort(T* First, T* Last, TFunctionRef<int(T, T)> Comparator)
+void QuickSelect(T* First, T* Nth, T* Last, TFunctionRef<int(T, T)> Comparator)
 {
-	T* Left = First;
-	T* Right = Last;
-	T Pivot = *First;
-
 	while (true)
 	{
-		while (Left <= Last && Comparator(*Left, Pivot) == 1)
+		T* Pivot = First;
+		T* Left = First + 1;
+		T* Right = Last - 1;
+
+		while (Left <= Right)
 		{
-			Left++;
+			while (Left <= Right && Comparator(*Left, *Pivot) == 1) Left++;
+			while (Left <= Right && Comparator(*Right, *Pivot) == -1) Right--;
+			if (Left <= Right)
+			{
+				Swap(Left, Right);
+				Left++;
+				Right--;
+			}
 		}
-		while (Right >= First && Comparator(*Right, Pivot) == -1)
-		{
-			Right--;
-		}
-		if (Left > Right)
+
+		Swap(Pivot, Right);
+
+		if (Right == Nth)
 		{
 			break;
 		}
-		Swap(Left, Right);
-		Left++;
-		Right--;
+		else if (Nth < Right)
+		{
+			Last = Right;
+		}
+		else
+		{
+			First = Left;
+		}
 	}
-
-	if (First < Left - 1)
-	{
-		QuickSort(First, Left - 1, Comparator);
-	}
-	if (Left < Last)
-	{
-		QuickSort(Left, Last, Comparator);
-	}
+	
 }
-
+	
 template <typename T>
 void NthElement(T* First, T* Nth, T* Last, TFunctionRef<int(T, T)> Comparator)
 {
-	// TODO: Use faster algorithm such as introselect.
-	QuickSort(First, Last - 1, Comparator);
+	QuickSelect(First, Nth, Last, Comparator);
 }
 
 FKdtreeNode* BuildNode(const FKdtreeInternal& Tree, int* Indices, int NumData, int Depth)
