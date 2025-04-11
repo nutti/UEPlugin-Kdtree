@@ -59,9 +59,8 @@ void QuickSelect(T* First, T* Nth, T* Last, TFunctionRef<int(T, T)> Comparator)
 			First = Left;
 		}
 	}
-	
 }
-	
+
 template <typename T>
 void NthElement(T* First, T* Nth, T* Last, TFunctionRef<int(T, T)> Comparator)
 {
