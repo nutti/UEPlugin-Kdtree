@@ -89,6 +89,7 @@ struct FCollectFromKdtreeTaskParams
 	float Radius;
 	TArray<int>* Indices;
 	TArray<FVector>* Data;
+	EKdtreeCollectionType Method = EKdtreeCollectionType::Circle;
 };
 
 class FCollectFromKdtreeTask : public FNonAbandonableTask
@@ -100,7 +101,7 @@ public:
 
 	void DoWork()
 	{
-		KdtreeInternal::CollectFromKdtree(Params.Tree->Internal, Params.Center, Params.Radius, Params.Indices);
+		KdtreeInternal::CollectFromKdtree(Params.Tree->Internal, Params.Center, Params.Radius, Params.Indices, Params.Method);
 		for (int Index = 0; Index < Params.Indices->Num(); ++Index)
 		{
 			Params.Data->Add(Params.Tree->Internal.Data[(*Params.Indices)[Index]]);

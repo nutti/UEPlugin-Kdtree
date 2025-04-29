@@ -31,3 +31,13 @@ struct KDTREE_API FKdtree
 
 	FKdtreeInternal Internal;
 };
+
+/**
+ * Enum to represent different collection methods for Kdtree
+ */
+UENUM(BlueprintType)
+enum class EKdtreeCollectionType : uint8
+{
+	Circle UMETA(DisplayName = "Circle (Default)"),
+	Box UMETA(DisplayName = "Box")
+};

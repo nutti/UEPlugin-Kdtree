@@ -27,9 +27,10 @@ void UKdtreeBPLibrary::ClearKdtree(FKdtree& Tree)
 }
 
 void UKdtreeBPLibrary::CollectFromKdtree(
-	const FKdtree& Tree, const FVector Center, float Radius, TArray<int>& Indices, TArray<FVector>& Data)
+	const FKdtree& Tree, const FVector Center, float Radius, TArray<int>& Indices, TArray<FVector>& Data,
+	EKdtreeCollectionType Method)
 {
-	KdtreeInternal::CollectFromKdtree(Tree.Internal, Center, Radius, &Indices);
+	KdtreeInternal::CollectFromKdtree(Tree.Internal, Center, Radius, &Indices, Method);
 	for (int Index = 0; Index < Indices.Num(); ++Index)
 	{
 		Data.Add(Tree.Internal.Data[Indices[Index]]);

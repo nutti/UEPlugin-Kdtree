@@ -23,7 +23,7 @@ struct FKdtreeNode
 
 void BuildKdtree(FKdtreeInternal* Tree, const TArray<FVector>& Data);
 void ClearKdtree(FKdtreeInternal* Tree);
-void CollectFromKdtree(const FKdtreeInternal& Tree, const FVector& Center, float Radius, TArray<int>* Result);
+void CollectFromKdtree(const FKdtreeInternal& Tree, const FVector& Center, float Radius, TArray<int>* Result, EKdtreeCollectionType Method);
 void ValidateKdtree(const FKdtreeInternal& Tree);
 void DumpKdTree(const FKdtreeInternal& Tree);
 }	 // namespace KdtreeInternal
