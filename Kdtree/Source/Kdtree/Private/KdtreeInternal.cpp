@@ -198,8 +198,7 @@ void DumpKdTree(const FKdtreeInternal& Tree, const FKdtreeNode* Node)
 }
 
 void CollectFromKdtree(
-	const FKdtreeInternal& Tree, const FKdtreeNode* Node, const FVector& Center, float Radius, TArray<int>* Result,
-	EKdtreeCollectionType Method)
+	const FKdtreeInternal& Tree, const FKdtreeNode* Node, const FVector& Center, float Radius, TArray<int>* Result)
 {
 	if (Node == nullptr)
 	{
@@ -207,32 +206,19 @@ void CollectFromKdtree(
 	}
 
 	const FVector& Current = Tree.Data[Node->Index];
-	switch (Method)
+	if (FVector::DistSquared(Center, Current) < Radius * Radius)
 	{
-		case EKdtreeCollectionType::Circle:
-			if (FVector::DistSquared(Center, Current) < Radius * Radius)
-			{
-				Result->Add(Node->Index);
-			}
-			break;
-		case EKdtreeCollectionType::Box:
-			if (FMath::Abs(Current.X - Center.X) <= Radius
-				&& FMath::Abs(Current.Y - Center.Y) <= Radius
-				&& FMath::Abs(Current.Z - Center.Z) <= Radius)
-			{
-				Result->Add(Node->Index);
-			}
-			break;
+		Result->Add(Node->Index);
 	}
 
 	int Axis = Node->Axis;
 	if (Center[Axis] < Current[Axis])
 	{
-		CollectFromKdtree(Tree, Node->ChildLeft, Center, Radius, Result, Method);
+		CollectFromKdtree(Tree, Node->ChildLeft, Center, Radius, Result);
 	}
 	else
 	{
-		CollectFromKdtree(Tree, Node->ChildRight, Center, Radius, Result, Method);
+		CollectFromKdtree(Tree, Node->ChildRight, Center, Radius, Result);
 	}
 
 	float Diff = FMath::Abs(Center[Axis] - Current[Axis]);
@@ -240,15 +226,40 @@ void CollectFromKdtree(
 	{
 		if (Center[Axis] < Current[Axis])
 		{
-			CollectFromKdtree(Tree, Node->ChildRight, Center, Radius, Result, Method);
+			CollectFromKdtree(Tree, Node->ChildRight, Center, Radius, Result);
 		}
 		else
 		{
-			CollectFromKdtree(Tree, Node->ChildLeft, Center, Radius, Result, Method);
+			CollectFromKdtree(Tree, Node->ChildLeft, Center, Radius, Result);
 		}
 	}
 }
-}	 // namespace
+
+void CollectFromKdtree(
+	const FKdtreeInternal& Tree, const FKdtreeNode* Node, const FBox& Box, TArray<int>* Result)
+{
+	if (Node == nullptr)
+	{
+		return;
+	}
+
+	const FVector& Current = Tree.Data[Node->Index];
+	if (Box.IsInsideOrOn(Current))
+	{
+		Result->Add(Node->Index);
+	}
+
+	int Axis = Node->Axis;
+	if (Box.Min[Axis] < Current[Axis])
+	{
+		CollectFromKdtree(Tree, Node->ChildLeft, Box, Result);
+	}
+	if (Box.Max[Axis] > Current[Axis])
+	{
+		CollectFromKdtree(Tree, Node->ChildRight, Box, Result);
+	}
+}
+} // namespace
 
 void BuildKdtree(FKdtreeInternal* Tree, const TArray<FVector>& Data)
 {
@@ -271,10 +282,14 @@ void ClearKdtree(FKdtreeInternal* Tree)
 	Tree->Data.Empty();
 }
 
-void CollectFromKdtree(const FKdtreeInternal& Tree, const FVector& Center, float Radius, TArray<int>* Result,
-	EKdtreeCollectionType Method)
+void CollectFromKdtree(const FKdtreeInternal& Tree, const FVector& Center, float Radius, TArray<int>* Result)
 {
-	CollectFromKdtree(Tree, Tree.Root, Center, Radius, Result, Method);
+	CollectFromKdtree(Tree, Tree.Root, Center, Radius, Result);
+}
+
+void CollectFromKdtree(const FKdtreeInternal& Tree, const FBox& Box, TArray<int>* Result)
+{
+	CollectFromKdtree(Tree, Tree.Root, Box, Result);
 }
 
 void ValidateKdtree(const FKdtreeInternal& Tree)

@@ -89,7 +89,6 @@ struct FCollectFromKdtreeTaskParams
 	float Radius;
 	TArray<int>* Indices;
 	TArray<FVector>* Data;
-	EKdtreeCollectionType Method = EKdtreeCollectionType::Circle;
 };
 
 class FCollectFromKdtreeTask : public FNonAbandonableTask
@@ -101,7 +100,7 @@ public:
 
 	void DoWork()
 	{
-		KdtreeInternal::CollectFromKdtree(Params.Tree->Internal, Params.Center, Params.Radius, Params.Indices, Params.Method);
+		KdtreeInternal::CollectFromKdtree(Params.Tree->Internal, Params.Center, Params.Radius, Params.Indices);
 		for (int Index = 0; Index < Params.Indices->Num(); ++Index)
 		{
 			Params.Data->Add(Params.Tree->Internal.Data[(*Params.Indices)[Index]]);
@@ -152,6 +151,70 @@ void UAsyncKdtreeBPLibrary::CollectFromKdtreeAsync(const UObject* WorldContextOb
 		if (LatentManager.FindExistingAction<FCollectFromKdtreeAction>(LatentInfo.CallbackTarget, LatentInfo.UUID) == nullptr)
 		{
 			FCollectFromKdtreeAction* NewAction = new FCollectFromKdtreeAction(LatentInfo, &Tree, Center, Radius, &Indices, &Data);
+			LatentManager.AddNewAction(LatentInfo.CallbackTarget, LatentInfo.UUID, NewAction);
+		}
+	}
+}
+
+class FCollectFromKdtreeBoxTask : public FNonAbandonableTask
+{
+public:
+	FCollectFromKdtreeBoxTask(const FCollectFromKdtreeTaskParams& InParams, const FBox& InBox) : Params(InParams), Box(InBox)
+	{
+	}
+
+	void DoWork()
+	{
+		KdtreeInternal::CollectFromKdtree(Params.Tree->Internal, Box, Params.Indices);
+		for (int Index = 0; Index < Params.Indices->Num(); ++Index)
+		{
+			Params.Data->Add(Params.Tree->Internal.Data[(*Params.Indices)[Index]]);
+		}
+	}
+
+	FORCEINLINE TStatId GetStatId() const
+	{
+		RETURN_QUICK_DECLARE_CYCLE_STAT(FCollectFromKdtreeTask, STATGROUP_ThreadPoolAsyncTasks);
+	}
+
+private:
+	FCollectFromKdtreeTaskParams Params;
+	FBox Box;
+};
+
+class FCollectFromKdtreeBoxAction : public FPendingLatentAction
+{
+public:
+	FLatentActionInfo LatentInfo;
+	FAsyncTask<FCollectFromKdtreeBoxTask>* Task;
+
+	FCollectFromKdtreeBoxAction(const FLatentActionInfo& InLatentInfo, const FKdtree* Tree, const FBox Box,
+		TArray<int>* Indices, TArray<FVector>* Data)
+		: LatentInfo(InLatentInfo), Task(nullptr)
+	{
+		FCollectFromKdtreeTaskParams Params;
+		Params.Tree = Tree;
+		Params.Indices = Indices;
+		Params.Data = Data;
+		Task = new FAsyncTask<FCollectFromKdtreeBoxTask>(Params, Box);
+		Task->StartBackgroundTask();
+	}
+
+	void UpdateOperation(FLatentResponse& Response) override
+	{
+		Response.FinishAndTriggerIf(Task->IsDone(), LatentInfo.ExecutionFunction, LatentInfo.Linkage, LatentInfo.CallbackTarget);
+	}
+};
+
+void UAsyncKdtreeBPLibrary::CollectFromKdtreeAsync_Box(const UObject* WorldContextObject, const FKdtree& Tree, const FBox Box,
+	TArray<int>& Indices, TArray<FVector>& Data, FLatentActionInfo LatentInfo)
+{
+	if (UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
+	{
+		FLatentActionManager& LatentManager = World->GetLatentActionManager();
+		if (LatentManager.FindExistingAction<FCollectFromKdtreeAction>(LatentInfo.CallbackTarget, LatentInfo.UUID) == nullptr)
+		{
+			FCollectFromKdtreeBoxAction* NewAction = new FCollectFromKdtreeBoxAction(LatentInfo, &Tree, Box, &Indices, &Data);
 			LatentManager.AddNewAction(LatentInfo.CallbackTarget, LatentInfo.UUID, NewAction);
 		}
 	}
