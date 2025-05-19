@@ -36,7 +36,7 @@ void UKdtreeBPLibrary::CollectFromKdtree(
 	}
 }
 
-void UKdtreeBPLibrary::CollectFromKdtree_Box(const FKdtree& Tree, const FBox Box, TArray<int>& Indices,
+void UKdtreeBPLibrary::CollectFromKdtreeBox(const FKdtree& Tree, const FBox Box, TArray<int>& Indices,
 	TArray<FVector>& Data)
 {
 	KdtreeInternal::CollectFromKdtree(Tree.Internal, Box, &Indices);
