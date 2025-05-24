@@ -155,3 +155,75 @@ void UAsyncKdtreeBPLibrary::CollectFromKdtreeAsync(const UObject* WorldContextOb
 		}
 	}
 }
+
+struct FCollectFromKdtreeBoxTaskParams
+{
+	const FKdtree* Tree;
+	FBox Box;
+	TArray<int>* Indices;
+	TArray<FVector>* Data;
+};
+
+class FCollectFromKdtreeBoxTask : public FNonAbandonableTask
+{
+public:
+	FCollectFromKdtreeBoxTask(const FCollectFromKdtreeBoxTaskParams& InParams) : Params(InParams)
+	{
+	}
+
+	void DoWork()
+	{
+		KdtreeInternal::CollectFromKdtree(Params.Tree->Internal, Params.Box, Params.Indices);
+		for (int Index = 0; Index < Params.Indices->Num(); ++Index)
+		{
+			Params.Data->Add(Params.Tree->Internal.Data[(*Params.Indices)[Index]]);
+		}
+	}
+
+	FORCEINLINE TStatId GetStatId() const
+	{
+		RETURN_QUICK_DECLARE_CYCLE_STAT(FCollectFromKdtreeBoxTask, STATGROUP_ThreadPoolAsyncTasks);
+	}
+
+private:
+	FCollectFromKdtreeBoxTaskParams Params;
+};
+
+class FCollectFromKdtreeBoxAction : public FPendingLatentAction
+{
+public:
+	FLatentActionInfo LatentInfo;
+	FAsyncTask<FCollectFromKdtreeBoxTask>* Task;
+
+	FCollectFromKdtreeBoxAction(const FLatentActionInfo& InLatentInfo, const FKdtree* Tree, const FBox Box,
+		TArray<int>* Indices, TArray<FVector>* Data)
+		: LatentInfo(InLatentInfo), Task(nullptr)
+	{
+		FCollectFromKdtreeBoxTaskParams Params;
+		Params.Tree = Tree;
+		Params.Box = Box;
+		Params.Indices = Indices;
+		Params.Data = Data;
+		Task = new FAsyncTask<FCollectFromKdtreeBoxTask>(Params);
+		Task->StartBackgroundTask();
+	}
+
+	void UpdateOperation(FLatentResponse& Response) override
+	{
+		Response.FinishAndTriggerIf(Task->IsDone(), LatentInfo.ExecutionFunction, LatentInfo.Linkage, LatentInfo.CallbackTarget);
+	}
+};
+
+void UAsyncKdtreeBPLibrary::CollectFromKdtreeAsyncBox(const UObject* WorldContextObject, const FKdtree& Tree, const FBox Box,
+	TArray<int>& Indices, TArray<FVector>& Data, FLatentActionInfo LatentInfo)
+{
+	if (UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
+	{
+		FLatentActionManager& LatentManager = World->GetLatentActionManager();
+		if (LatentManager.FindExistingAction<FCollectFromKdtreeBoxAction>(LatentInfo.CallbackTarget, LatentInfo.UUID) == nullptr)
+		{
+			FCollectFromKdtreeBoxAction* NewAction = new FCollectFromKdtreeBoxAction(LatentInfo, &Tree, Box, &Indices, &Data);
+			LatentManager.AddNewAction(LatentInfo.CallbackTarget, LatentInfo.UUID, NewAction);
+		}
+	}
+}

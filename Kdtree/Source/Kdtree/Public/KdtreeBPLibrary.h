@@ -28,9 +28,13 @@ public:
 	UFUNCTION(BluePrintCallable, Category = "SpacialDataStructure|kd-tree")
 	static void ClearKdtree(UPARAM(ref) FKdtree& Tree);
 
-	UFUNCTION(BluePrintCallable, Category = "SpacialDataStructure|kd-tree")
+	UFUNCTION(BlueprintCallable, Category = "SpacialDataStructure|kd-tree", DisplayName="Collect From Kdtree (Sphere)")
 	static void CollectFromKdtree(
 		const FKdtree& Tree, const FVector Center, float Radius, TArray<int>& Indices, TArray<FVector>& Data);
+
+	UFUNCTION(BlueprintCallable, Category = "SpacialDataStructure|kd-tree", DisplayName="Collect From Kdtree (Box)")
+	static void CollectFromKdtreeBox(
+		const FKdtree& Tree, const FBox Box, TArray<int>& Indices, TArray<FVector>& Data);
 
 	UFUNCTION(BluePrintCallable, Category = "SpacialDataStructure|kd-tree")
 	static void ValidateKdtree(const FKdtree& Tree);
