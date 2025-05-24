@@ -15,7 +15,7 @@ Blueprint Function Library.
 
 This plugin supports on the below environment.
 
-* Unreal Engine Version: 4.22-4.27, 5.0-5.6
+* Unreal Engine Version: 4.22-4.27, 5.0-
 * Development Platforms: Windows, macOS, Linux
 * Target Build Platforms: All platforms
 
