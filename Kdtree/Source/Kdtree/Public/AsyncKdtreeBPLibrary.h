@@ -37,9 +37,9 @@ public:
 		TArray<int>& Indices, TArray<FVector>& Data, FLatentActionInfo LatentInfo);
 
 	UFUNCTION(BlueprintCallable,
-	meta = (WorldContextObject = "WorldContextObject", Latent, LatentInfo = "LatentInfo", HidePin = "WorldContextObject",
-		DefaultToSelf = "WorldContextObject"),
-	Category = "SpacialDataStructure|kd-tree", DisplayName= "Collect From Kdtree Async (Box)")
+		meta = (WorldContextObject = "WorldContextObject", Latent, LatentInfo = "LatentInfo", HidePin = "WorldContextObject",
+			DefaultToSelf = "WorldContextObject"),
+		Category = "SpacialDataStructure|kd-tree", DisplayName = "Collect From Kdtree Async (Box)")
 	static void CollectFromKdtreeAsyncBox(const UObject* WorldContextObject, const FKdtree& Tree, const FBox Box,
 		TArray<int>& Indices, TArray<FVector>& Data, FLatentActionInfo LatentInfo);
 };

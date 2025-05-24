@@ -195,8 +195,8 @@ public:
 	FLatentActionInfo LatentInfo;
 	FAsyncTask<FCollectFromKdtreeBoxTask>* Task;
 
-	FCollectFromKdtreeBoxAction(const FLatentActionInfo& InLatentInfo, const FKdtree* Tree, const FBox Box,
-		TArray<int>* Indices, TArray<FVector>* Data)
+	FCollectFromKdtreeBoxAction(
+		const FLatentActionInfo& InLatentInfo, const FKdtree* Tree, const FBox Box, TArray<int>* Indices, TArray<FVector>* Data)
 		: LatentInfo(InLatentInfo), Task(nullptr)
 	{
 		FCollectFromKdtreeBoxTaskParams Params;

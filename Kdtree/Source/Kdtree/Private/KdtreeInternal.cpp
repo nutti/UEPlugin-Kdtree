@@ -34,8 +34,14 @@ void QuickSelect(T* First, T* Nth, T* Last, TFunctionRef<int(T, T)> Comparator)
 
 		while (Left <= Right)
 		{
-			while (Left <= Right && Comparator(*Left, *Pivot) == 1) Left++;
-			while (Left <= Right && Comparator(*Right, *Pivot) == -1) Right--;
+			while (Left <= Right && Comparator(*Left, *Pivot) == 1)
+			{
+				Left++;
+			}
+			while (Left <= Right && Comparator(*Right, *Pivot) == -1)
+			{
+				Right--;
+			}
 			if (Left <= Right)
 			{
 				Swap(Left, Right);
@@ -235,8 +241,7 @@ void CollectFromKdtree(
 	}
 }
 
-void CollectFromKdtree(
-	const FKdtreeInternal& Tree, const FKdtreeNode* Node, const FBox& Box, TArray<int>* Result)
+void CollectFromKdtree(const FKdtreeInternal& Tree, const FKdtreeNode* Node, const FBox& Box, TArray<int>* Result)
 {
 	if (Node == nullptr)
 	{
@@ -259,7 +264,7 @@ void CollectFromKdtree(
 		CollectFromKdtree(Tree, Node->ChildRight, Box, Result);
 	}
 }
-} // namespace
+}	 // namespace
 
 void BuildKdtree(FKdtreeInternal* Tree, const TArray<FVector>& Data)
 {
