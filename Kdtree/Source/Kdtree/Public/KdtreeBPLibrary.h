@@ -29,7 +29,7 @@ public:
 	static void ClearKdtree(UPARAM(ref) FKdtree& Tree);
 
 	UFUNCTION(BlueprintCallable, Category = "SpacialDataStructure|kd-tree", DisplayName = "Collect From Kdtree (Sphere)")
-	static void CollectFromKdtree(
+	static void CollectFromKdtreeSphere(
 		const FKdtree& Tree, const FVector Center, float Radius, TArray<int>& Indices, TArray<FVector>& Data);
 
 	UFUNCTION(BlueprintCallable, Category = "SpacialDataStructure|kd-tree", DisplayName = "Collect From Kdtree (Box)")

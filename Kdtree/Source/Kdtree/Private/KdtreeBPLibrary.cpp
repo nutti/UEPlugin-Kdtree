@@ -26,7 +26,7 @@ void UKdtreeBPLibrary::ClearKdtree(FKdtree& Tree)
 	KdtreeInternal::ClearKdtree(&Tree.Internal);
 }
 
-void UKdtreeBPLibrary::CollectFromKdtree(
+void UKdtreeBPLibrary::CollectFromKdtreeSphere(
 	const FKdtree& Tree, const FVector Center, float Radius, TArray<int>& Indices, TArray<FVector>& Data)
 {
 	KdtreeInternal::CollectFromKdtree(Tree.Internal, Center, Radius, &Indices);

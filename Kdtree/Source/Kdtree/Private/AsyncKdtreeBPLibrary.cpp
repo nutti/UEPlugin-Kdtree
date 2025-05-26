@@ -82,7 +82,7 @@ void UAsyncKdtreeBPLibrary::BuildKdtreeAsync(
 	}
 }
 
-struct FCollectFromKdtreeTaskParams
+struct FCollectFromKdtreeSphereTaskParams
 {
 	const FKdtree* Tree;
 	FVector Center;
@@ -91,10 +91,10 @@ struct FCollectFromKdtreeTaskParams
 	TArray<FVector>* Data;
 };
 
-class FCollectFromKdtreeTask : public FNonAbandonableTask
+class FCollectFromKdtreeSphereTask : public FNonAbandonableTask
 {
 public:
-	FCollectFromKdtreeTask(const FCollectFromKdtreeTaskParams& InParams) : Params(InParams)
+	FCollectFromKdtreeSphereTask(const FCollectFromKdtreeSphereTaskParams& InParams) : Params(InParams)
 	{
 	}
 
@@ -109,30 +109,30 @@ public:
 
 	FORCEINLINE TStatId GetStatId() const
 	{
-		RETURN_QUICK_DECLARE_CYCLE_STAT(FCollectFromKdtreeTask, STATGROUP_ThreadPoolAsyncTasks);
+		RETURN_QUICK_DECLARE_CYCLE_STAT(FCollectFromKdtreeSphereTask, STATGROUP_ThreadPoolAsyncTasks);
 	}
 
 private:
-	FCollectFromKdtreeTaskParams Params;
+	FCollectFromKdtreeSphereTaskParams Params;
 };
 
-class FCollectFromKdtreeAction : public FPendingLatentAction
+class FCollectFromKdtreeSphereAction : public FPendingLatentAction
 {
 public:
 	FLatentActionInfo LatentInfo;
-	FAsyncTask<FCollectFromKdtreeTask>* Task;
+	FAsyncTask<FCollectFromKdtreeSphereTask>* Task;
 
-	FCollectFromKdtreeAction(const FLatentActionInfo& InLatentInfo, const FKdtree* Tree, const FVector Center, float Radius,
+	FCollectFromKdtreeSphereAction(const FLatentActionInfo& InLatentInfo, const FKdtree* Tree, const FVector Center, float Radius,
 		TArray<int>* Indices, TArray<FVector>* Data)
 		: LatentInfo(InLatentInfo), Task(nullptr)
 	{
-		FCollectFromKdtreeTaskParams Params;
+		FCollectFromKdtreeSphereTaskParams Params;
 		Params.Tree = Tree;
 		Params.Center = Center;
 		Params.Radius = Radius;
 		Params.Indices = Indices;
 		Params.Data = Data;
-		Task = new FAsyncTask<FCollectFromKdtreeTask>(Params);
+		Task = new FAsyncTask<FCollectFromKdtreeSphereTask>(Params);
 		Task->StartBackgroundTask();
 	}
 
@@ -142,15 +142,16 @@ public:
 	}
 };
 
-void UAsyncKdtreeBPLibrary::CollectFromKdtreeAsync(const UObject* WorldContextObject, const FKdtree& Tree, const FVector Center,
-	float Radius, TArray<int>& Indices, TArray<FVector>& Data, FLatentActionInfo LatentInfo)
+void UAsyncKdtreeBPLibrary::CollectFromKdtreeSphereAsync(const UObject* WorldContextObject, const FKdtree& Tree,
+	const FVector Center, float Radius, TArray<int>& Indices, TArray<FVector>& Data, FLatentActionInfo LatentInfo)
 {
 	if (UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
 	{
 		FLatentActionManager& LatentManager = World->GetLatentActionManager();
-		if (LatentManager.FindExistingAction<FCollectFromKdtreeAction>(LatentInfo.CallbackTarget, LatentInfo.UUID) == nullptr)
+		if (LatentManager.FindExistingAction<FCollectFromKdtreeSphereAction>(LatentInfo.CallbackTarget, LatentInfo.UUID) == nullptr)
 		{
-			FCollectFromKdtreeAction* NewAction = new FCollectFromKdtreeAction(LatentInfo, &Tree, Center, Radius, &Indices, &Data);
+			FCollectFromKdtreeSphereAction* NewAction =
+				new FCollectFromKdtreeSphereAction(LatentInfo, &Tree, Center, Radius, &Indices, &Data);
 			LatentManager.AddNewAction(LatentInfo.CallbackTarget, LatentInfo.UUID, NewAction);
 		}
 	}
@@ -214,7 +215,7 @@ public:
 	}
 };
 
-void UAsyncKdtreeBPLibrary::CollectFromKdtreeAsyncBox(const UObject* WorldContextObject, const FKdtree& Tree, const FBox Box,
+void UAsyncKdtreeBPLibrary::CollectFromKdtreeBoxAsync(const UObject* WorldContextObject, const FKdtree& Tree, const FBox Box,
 	TArray<int>& Indices, TArray<FVector>& Data, FLatentActionInfo LatentInfo)
 {
 	if (UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
