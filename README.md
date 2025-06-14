@@ -55,3 +55,5 @@ Support via [GitHub Sponsors](https://github.com/sponsors/nutti)
 ### Contributor
 
 * [**@irvnriir**](https://github.com/irvnriir)
+* [**@kak0na**](https://github.com/kak0na)
+* [**@902D9**](https://github.com/902D9)

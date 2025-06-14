@@ -2,7 +2,21 @@
 
 # Change Log
 
-## [Unreleased](https://github.com/nutti/UE4-Kdtree/compare/v1.4.0...master)
+## [Unreleased](https://github.com/nutti/UE4-Kdtree/compare/v1.5.0...master)
+
+<!-- markdownlint-disable-next-line MD013 -->
+## [Version 1.5.0](https://github.com/nutti/UE4-Kdtree/compare/v1.4.0...v1.5.0) - 2025.6.14
+
+### Updated Features
+
+* Support on Unreal Engine 5.6
+* Add the library function "Collect From Kdtree (Box)"
+* Use QuickSort instead of QuickSelect to get nth element
+
+### Contributor
+
+* [**@kak0na**](https://github.com/kak0na)
+* [**@902D9**](https://github.com/902D9)
 
 <!-- markdownlint-disable-next-line MD013 -->
 ## [Version 1.4.0](https://github.com/nutti/UE4-Kdtree/compare/v1.3.0...v1.4.0) - 2024.12.28
